@@ -1,6 +1,6 @@
 const http = requier("http");
 
-const PORT = 5000;
+const PORT = 3004;
 
 const server = http.createServer((req, res) =>{
 
