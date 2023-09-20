@@ -3,6 +3,7 @@ const homeHtml = require("./views/home/index.js")
 const cssSite = require("./content/styles/site.js")
 const addBreedHtml = require("./views/addBreed.js")
 const addCatHtml = require("./views/addCat")
+const catTemplateHtml = require("./views/home/catTemplate.js")
 const PORT = 3004;
 
 const cats = [
@@ -35,7 +36,19 @@ const server = http.createServer((req, res) => {
     const { url } = req;
 
     if (url === "/") {
-       const homeHtmlTemplate = homeHtml.replace("{{cats}}", '<h1>Cats works<h1>')
+       const imageUrlPattern = /{{imageUrl}}/g;
+       const namePattern = /{{name}}/g;
+       const breedPattern = /{{breed}}/g;
+       const descriptionPattern = /{{description}}/g;
+
+       const catHtml = cats.map((cat) => 
+       catTemplateHtml
+          .replace(imageUrlPattern, cat.imageUrl)
+          .replace(namePattern, cat.name)
+          .replace(breedPattern, cat.breed)
+          .replace(descriptionPattern, cat.description)
+       );
+       const homeHtmlTemplate = homeHtml.replace("{{cats}}", catHtml)
         res.writeHead(200, {
             "Content-Type": "text/html"
         });
