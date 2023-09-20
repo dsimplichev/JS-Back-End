@@ -1,5 +1,5 @@
 module.exports = `<li>
-                    <img src="{{imageUrl" alt="{{name}}">
+                    <img src="{{imageUrl}}" alt="{{name}}">
                     <h3>Pretty Kitty</h3>
                     <p><span>Breed: </span>{{name}}</p>
                     <p><span>Description: </span>{{description}}</p>
