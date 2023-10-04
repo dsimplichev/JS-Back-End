@@ -2,9 +2,8 @@ const express = require("express");
 const { v4: uuid }= require("uuid");
 const cookieParser = require("cookie-parser");
 const PORT = 5004;
-const app = express();
 
-const session = {}; 
+const app = express();
 app.use(cookieParser());
 
 
@@ -13,17 +12,13 @@ app.get('/', (req, res) => {
    
    const userId = req.cookies["userId"];
    
-   if (userId) {
+   if(userId) {
         id = userId;
-        console.log({ session })
         
     } else {
         id = uuid();
-        
-        session[id] = {
-            secret: "my secret",
-        };
-        res.cookie("userId", id,);
+        res.cookie("userId", id, { httpOnly: true});
+        res.cookie("userId2", id, )
     }
     res.send("Hello Deni! ID:" + id);
     
