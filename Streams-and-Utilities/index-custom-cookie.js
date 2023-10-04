@@ -1,22 +1,20 @@
 const express = require("express");
 const { v4: uuid }= require("uuid");
-const cookieParser = require("cookie-parser");
 const PORT = 5004;
-
 const app = express();
-app.use(cookieParser());
-
 
 app.get('/', (req, res) => {
     let id;
-    // const cookie = req.headers["cookie"];
-  const userId = req.cookies["userId"];
-    if(userId) {
-        id = userId;
-        console.log(req.session);
+    const cookie = req.headers["cookie"];
+
+    if (cookie) {
+        const [key, value] = cookie.split("=");
+        id = value;
+        console.log({ key });
+        console.log({ value });
     } else {
         id = uuid();
-        req.cookies("userId, id");
+        res.header("Set-Cookie", `userId=${id}`);
     }
     res.send("Hello Deni! ID:" + id);
     
